@@ -1,0 +1,21 @@
+# NVGRE-for-WAP
+
+1. Create a virtual network VN-01(10.0.0.--) on BLR portal  and another virtual network  VN-02(10.1.1.--) on MUM portal.
+2. On 10.240.104.-- RRAS server is installed. 
+3.Open the Console
+Create gateway for  VN-01
+New-AzureVNetGateway –VNetName "VN-01" 
+
+Create gateway for  VN-02
+New-AzureVNetGateway –VNetName "VN-02" 
+
+
+4. Create VPN interface for both the networks using the following commands:
+
+Add-VpnS2SInterface –Name “VN-01” –Destination 10.240.92.-- –IP4vSubnet “10.0.0.--/24:1000” –GreTunnel –GreKey “1” –SourceIPAddress 10.240.92.---
+
+Add-VpnS2SInterface –Name “VN-02” –Destination 10.240.92.-- –IP4vSubnet “10.1.1.--/24:1000” –GreTunnel –GreKey “2” –SourceIPAddress 10.240.92.---
+
+5. Check the Connectivity and VPN Connections on VMM Console network properties. 
+The configured gateway will automatically get configured for the networks for NVGRE.
+
